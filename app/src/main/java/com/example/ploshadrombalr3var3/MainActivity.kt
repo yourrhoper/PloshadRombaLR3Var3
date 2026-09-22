@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ploshadrombalr3var3.ui.theme.PloshadRombaLR3Var3Theme
@@ -18,30 +22,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PloshadRombaLR3Var3Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+                RombApp()
+
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    PloshadRombaLR3Var3Theme {
-        Greeting("Android")
-    }
+fun RombApp() {
+
+    var variant by remember { mutableStateOf(1) }
+
+    var a by remember { mutableStateOf("") }
+    var h by remember { mutableStateOf("") }
+
+    var d1 by remember { mutableStateOf("") }
+    var d2 by remember { mutableStateOf("") }
+
+    var result by remember { mutableStateOf("") }
 }
