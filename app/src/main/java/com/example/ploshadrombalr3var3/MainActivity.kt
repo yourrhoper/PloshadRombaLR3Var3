@@ -1,9 +1,9 @@
 package com.example.ploshadrombalr3var3
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,9 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ploshadrombalr3var3.ui.theme.PloshadRombaLR3Var3Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,17 +43,21 @@ class MainActivity : ComponentActivity() {
 fun RombApp() {
 
     var variant by remember { mutableIntStateOf(1) }
-
+    // изменяемая переменная,
+    // которая не должна изменяться при перевыполнении функции
+    // и имеет изначальное значение 1 для выбранной RadioButton
     var a by remember { mutableStateOf("") }
     var h by remember { mutableStateOf("") }
     var d1 by remember { mutableStateOf("") }
     var d2 by remember { mutableStateOf("") }
+    var result by remember { mutableStateOf("") }
 
-    Column(
-        modifier = Modifier
+    Column(modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
-    ) {
+            .padding(20.dp),
+        verticalArrangement = Arrangement.Center
+        // horizontalAlignment = Alignment.CenterHorizontally
+        ) {
         Spacer(modifier = Modifier.height(60.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -82,7 +85,7 @@ fun RombApp() {
             Text("2. По диагоналям")
         }
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         when (variant) {
 
@@ -130,6 +133,47 @@ fun RombApp() {
                 )
             }
         }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(
+            onClick = {
+
+                result = when (variant) {
+
+                    1 -> {
+                        val side = a.toDoubleOrNull()
+                        val height = h.toDoubleOrNull()
+
+                        if (side != null && height != null) {
+                            "Площадь = ${side * height}"
+                        } else {
+                            "Введите корректные значения"
+                        }
+                    }
+
+                    2 -> {
+                        val diagonal1 = d1.toDoubleOrNull()
+                        val diagonal2 = d2.toDoubleOrNull()
+
+                        if (diagonal1 != null && diagonal2 != null) {
+                            "Площадь = ${diagonal1 * diagonal2 / 2}"
+                        } else {
+                            "Введите корректные значения"
+                        }
+                    }
+
+                    else -> {
+                        ""
+                    }
+                }
+            }
+        ) {
+            Text("Вычислить")
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(text = result)
     }
 }
 
